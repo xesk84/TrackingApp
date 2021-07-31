@@ -1,16 +1,25 @@
 import React, {useCallback, useState} from 'react';
 import {SafeAreaView, Text, View} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import {Button, Input, Section} from '../components';
 import {Styles} from '../styles/Styles';
+import {driverRequest} from '../_redux/driver/actions/DriverActions';
+import {Driver} from '../_redux/driver/entities/Driver';
+import {getDriverSaga} from '../_redux/driver/sagas/DriverSaga';
 
 type Props = {navigation};
 
 export const MainScreen = ({navigation}: Props) => {
+  const dispatch = useDispatch();
+  const {id, status, error} = useSelector((state: Driver) => state);
   const [driverId, setDriverId] = useState('');
   const [password, setPassword] = useState('');
   const onLogin = () => {
     console.log('driverId', driverId);
     console.log('password', password);
+    getDriverSaga(id, password);
+
+    //dispatch(driverRequest());
   };
 
   const onChangeDriverId = useCallback((text: string) => {
@@ -51,6 +60,9 @@ export const MainScreen = ({navigation}: Props) => {
             buttonStyle={Styles.smallButton}
             textStyle={Styles.buttonTextStyle}
           />
+        </Section>
+        <Section sectionStyle={Styles.verticalSectionSeparator}>
+          <Text>{`El driver es: ${id} ${error} ${status}`}</Text>
         </Section>
       </View>
     </SafeAreaView>
