@@ -1,5 +1,4 @@
-import {Dimensions} from 'react-native';
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 
 export const Styles = StyleSheet.create({
   mainContainer: {
@@ -69,5 +68,38 @@ export const Styles = StyleSheet.create({
   bottomAbsoluteSection: {
     flex: 1,
     justifyContent: 'flex-end',
+  },
+  deliveryListItem: {
+    borderBottomWidth: 0.5,
+    borderColor: 'gray',
+    flex: 1,
+    paddingVertical: 10,
+    width: Dimensions.get('window').width - 20,
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  deliveryItemData: {
+    flex: 3,
+  },
+  deliveryItemButtonContainer: {
+    flex: 1.5,
+  },
+  itemDataRow: {
+    width: 250,
+    flexDirection: 'row',
+  },
+  itemDataTitle: {
+    fontSize: 15,
+    fontWeight: 'bold',
+  },
+  deliverButton: {
+    width: 100,
+    height: 60,
+    borderColor: 'black',
+    borderWidth: 1,
+    marginLeft: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 20,
   },
 });
