@@ -1,3 +1,4 @@
+import {Dimensions} from 'react-native';
 import {StyleSheet} from 'react-native';
 
 export const Styles = StyleSheet.create({
@@ -15,13 +16,27 @@ export const Styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 20,
   },
+  reverseSmallButton: {
+    width: 150,
+    height: 60,
+    backgroundColor: 'black',
+    borderWidth: 1,
+    marginLeft: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 20,
+  },
   centerContent: {
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: 20,
+    flex: 1,
   },
   title: {
-    fontSize: 20,
+    fontSize: 22,
+  },
+  subtitle: {
+    fontSize: 18,
   },
   inputContainer: {
     width: 300,
@@ -45,5 +60,14 @@ export const Styles = StyleSheet.create({
   buttonTextStyle: {
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  reverseButtonTextStyle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  bottomAbsoluteSection: {
+    flex: 1,
+    justifyContent: 'flex-end',
   },
 });

@@ -27,7 +27,6 @@ export type DriverError = {
 
 export type DriverLogout = {
   type: DriverActionTypes.DRIVER_ACTION_LOGOUT;
-  payload: Driver;
 };
 
 export type DriverActions =
@@ -45,12 +44,15 @@ const initialState: Driver = {
 export const driverReducer = (state = initialState, action: DriverActions) => {
   switch (action.type) {
     case DriverActionTypes.DRIVER_ACTION_REQUEST:
+      console.log('fiquem a loading');
       return {...state, status: 1};
     case DriverActionTypes.DRIVER_ACTION_FETCH:
+      console.log('fetchem driver');
       return {...state, id: action.payload.id, error: '', status: 2};
     case DriverActionTypes.DRIVER_ACTION_ERROR:
       return {id: '', error: action.error, status: 2};
     case DriverActionTypes.DRIVER_ACTION_LOGOUT:
+      console.log('hola?');
       return {...initialState};
     default:
       return state;
