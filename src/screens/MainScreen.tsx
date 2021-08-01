@@ -6,6 +6,7 @@ import {StatusEnum} from '../common/enums/StatusEnum';
 import {Logged, Login, Section} from '../components';
 import {Delivery} from '../redux/deliveries/entitites/DeliveryEntity';
 import {
+  loadPersistedActiveDelivery,
   setActiveDeliveryDelivered,
   setActiveDeliveryNotDelivered,
 } from '../redux/deliveries/services/ActiveDeliveryService';
@@ -33,6 +34,12 @@ export const MainScreen = ({navigation}: Props) => {
   useEffect(() => {
     dispatch(getPersistedDriver());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(loadPersistedActiveDelivery());
+    }
+  });
 
   const onLogin = () => {
     dispatch(loginDriver(driverId, password));
