@@ -29,8 +29,6 @@ export const MainScreen = ({navigation}: Props) => {
     (state: RootState) => state.activeDelivery,
   );
 
-  console.log('tenim active delivery?', activeDelivery);
-
   useEffect(() => {
     dispatch(getPersistedDriver());
   }, [dispatch]);

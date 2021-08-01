@@ -1,6 +1,7 @@
 import {Dispatch} from 'redux';
 import {DriverActionTypes} from '../actions/DriverActions';
 import AsyncStorage from '@react-native-community/async-storage';
+import {mockedPostDriver} from '../../../common/services/ApiService';
 
 const STORAGE_KEY = 'DRIVER_KEY';
 
@@ -9,13 +10,18 @@ export const loginDriver = (id: string, password: string) => {
     dispatch({
       type: DriverActionTypes.DRIVER_ACTION_REQUEST,
     });
-    setTimeout(() => {
-      dispatch({
-        type: DriverActionTypes.DRIVER_ACTION_FETCH,
-        payload: {id: id},
+    mockedPostDriver('/driver', id, password)
+      .then(() => {
+        console.log('tornem de la crida de driver');
+        dispatch({
+          type: DriverActionTypes.DRIVER_ACTION_FETCH,
+          payload: {id: id},
+        });
+        AsyncStorage.setItem(STORAGE_KEY, id);
+      })
+      .catch(e => {
+        console.log(e);
       });
-      AsyncStorage.setItem(STORAGE_KEY, id);
-    }, 1000);
   };
 };
 
