@@ -15,3 +15,8 @@ export type Deliveries = {
   status: StatusEnum;
   error: string;
 };
+
+export type DeliveryFinish = {
+  delivery: Delivery;
+  deliveryStatus: 'delivered' | 'undelivered';
+};

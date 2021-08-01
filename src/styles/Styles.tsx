@@ -66,8 +66,9 @@ export const Styles = StyleSheet.create({
     color: 'white',
   },
   bottomAbsoluteSection: {
-    flex: 1,
     justifyContent: 'flex-end',
+    position: 'absolute',
+    bottom: 0,
   },
   deliveryListItem: {
     borderBottomWidth: 0.5,
@@ -101,5 +102,18 @@ export const Styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
+  },
+  activeDeliveryRow: {
+    flexDirection: 'row',
+  },
+  activeDeliveryDataTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  activeDeliveryDataValue: {
+    fontSize: 18,
+  },
+  activeDeliverButtonsContainer: {
+    flexDirection: 'row',
   },
 });

@@ -1,17 +1,22 @@
+import {NavigationProp} from '@react-navigation/native';
 import React, {useEffect} from 'react';
-import {ListRenderItemInfo} from 'react-native';
+import {ActivityIndicator, ListRenderItemInfo} from 'react-native';
 import {FlatListProps} from 'react-native';
 import {View, Text, SafeAreaView, FlatList, ListRenderItem} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
+import {StatusEnum} from '../common/enums/StatusEnum';
 import {Button} from '../components';
 import {Delivery} from '../redux/deliveries/entitites/DeliveryEntity';
+import {setActiveDelivery} from '../redux/deliveries/services/ActiveDeliveryService';
 import {getDeliveries} from '../redux/deliveries/services/DeliveryServices';
 import {RootState} from '../redux/RootReducer';
 import {Styles} from '../styles/Styles';
 
-type Props = {};
+type Props = {
+  navigation: NavigationProp<any>;
+};
 
-export const DeliveriesListScreen = (props: Props) => {
+export const DeliveriesListScreen = ({navigation}: Props) => {
   const dispatch = useDispatch();
   const {deliveries, status, error} = useSelector(
     (state: RootState) => state.deliveries,
@@ -26,6 +31,12 @@ export const DeliveriesListScreen = (props: Props) => {
 
   const keyExtractor = (item: Delivery, index: number) => {
     return `${item.id}-${index}`;
+  };
+
+  const setActive = (delivery: Delivery) => {
+    console.log('farem actiu', delivery.id);
+    dispatch(setActiveDelivery(delivery));
+    navigation.goBack();
   };
 
   const renderItem = ({item}: ListRenderItemInfo<Delivery>) => {
@@ -49,7 +60,7 @@ export const DeliveriesListScreen = (props: Props) => {
           <Button
             buttonStyle={Styles.deliverButton}
             buttonText="Deliver"
-            onPress={() => console.log('mactivo')}
+            onPress={() => setActive(item)}
             textStyle={Styles.buttonTextStyle}
           />
         </View>
@@ -60,11 +71,15 @@ export const DeliveriesListScreen = (props: Props) => {
   return (
     <SafeAreaView style={Styles.mainContainer}>
       <View style={Styles.centerContent}>
-        <FlatList
-          keyExtractor={keyExtractor}
-          data={deliveries}
-          renderItem={renderItem}
-        />
+        {status === StatusEnum.Loading ? (
+          <ActivityIndicator size={'large'} />
+        ) : (
+          <FlatList
+            keyExtractor={keyExtractor}
+            data={deliveries}
+            renderItem={renderItem}
+          />
+        )}
       </View>
     </SafeAreaView>
   );

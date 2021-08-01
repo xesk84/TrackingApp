@@ -4,6 +4,11 @@ import {ActivityIndicator, SafeAreaView, Text, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {StatusEnum} from '../common/enums/StatusEnum';
 import {Logged, Login, Section} from '../components';
+import {Delivery} from '../redux/deliveries/entitites/DeliveryEntity';
+import {
+  setActiveDeliveryDelivered,
+  setActiveDeliveryNotDelivered,
+} from '../redux/deliveries/services/ActiveDeliveryService';
 import {
   getPersistedDriver,
   loginDriver,
@@ -19,6 +24,11 @@ export const MainScreen = ({navigation}: Props) => {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const {id, status, error} = useSelector((state: RootState) => state.driver);
+  const activeDelivery: Delivery = useSelector(
+    (state: RootState) => state.activeDelivery,
+  );
+
+  console.log('tenim active delivery?', activeDelivery);
 
   useEffect(() => {
     dispatch(getPersistedDriver());
@@ -38,6 +48,14 @@ export const MainScreen = ({navigation}: Props) => {
 
   const onLogout = () => {
     dispatch(logoutDriver());
+  };
+
+  const onDelivered = () => {
+    dispatch(setActiveDeliveryDelivered(activeDelivery));
+  };
+
+  const onUndelivered = () => {
+    dispatch(setActiveDeliveryNotDelivered(activeDelivery));
   };
 
   return (
@@ -61,6 +79,9 @@ export const MainScreen = ({navigation}: Props) => {
                 navigation={navigation}
                 driverId={id}
                 onLogout={onLogout}
+                activeDelivery={activeDelivery}
+                onUndelivered={onUndelivered}
+                onDelivered={onDelivered}
               />
             )}
           </>
