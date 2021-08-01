@@ -25,6 +25,7 @@ export const activeDeliveryReducer = (
         ...action.payload,
       };
     case ActiveDeliveryActionTypes.ACTIVE_DELIVERY_FINISH:
+      console.log('zorra sidosa?');
       return {
         ...initialState,
       };

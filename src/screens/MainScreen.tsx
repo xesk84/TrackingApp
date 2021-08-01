@@ -37,7 +37,7 @@ export const MainScreen = ({navigation}: Props) => {
     if (id) {
       dispatch(loadPersistedActiveDelivery());
     }
-  });
+  }, [dispatch, id]);
 
   const onLogin = () => {
     dispatch(loginDriver(driverId, password));

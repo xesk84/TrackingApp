@@ -59,14 +59,11 @@ export const mockedPostDriver = async (
   apiMethod: string,
   id: string,
   password: string,
-): Promise<string> => {
+): Promise<void> => {
   console.log('arriba la crida');
   if (apiMethod === '/driver' && id && password) {
-    console.log('crida correcta');
     await timeoutSimulatingApiCall();
-    console.log('acaba crida driver');
   } else {
-    console.log('error!!');
     throw new Error('Invalid method');
   }
 };
@@ -74,8 +71,9 @@ export const mockedPostDriver = async (
 export const mockedPostDelivery = async (
   apiMethod: string,
   delivery: Delivery,
+  status: 'delivered' | 'undelivered',
 ): Promise<void> => {
-  if (apiMethod === '/driver' && delivery) {
+  if (apiMethod === '/finishDelivery' && delivery && status) {
     await timeoutSimulatingApiCall();
   } else {
     throw new Error('Invalid method');

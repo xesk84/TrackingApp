@@ -2,6 +2,7 @@ import {Dispatch} from 'redux';
 import {ActiveDeliveryActionTypes} from '../actions/ActiveDeliveryActions';
 import {Delivery} from '../entitites/DeliveryEntity';
 import AsyncStorage from '@react-native-community/async-storage';
+import {mockedPostDelivery} from '../../../common/services/ApiService';
 
 const STORAGE_KEY = 'ACTIVE_DELIVERY_KEY';
 
@@ -34,24 +35,26 @@ export const setActiveDeliveryDelivered = (delivery: Delivery) => {
   return (dispatch: Dispatch) => {
     //TODO: set status delivered
     //TODO: send to api
-    setTimeout(() => {
+    mockedPostDelivery('/finishDelivery', delivery, 'delivered').then(() => {
+      console.log('delivered');
       dispatch({
         type: ActiveDeliveryActionTypes.ACTIVE_DELIVERY_FINISH,
       });
-    }, 1000);
-    AsyncStorage.removeItem(STORAGE_KEY);
+      AsyncStorage.removeItem(STORAGE_KEY);
+    });
   };
 };
 
 export const setActiveDeliveryNotDelivered = (delivery: Delivery) => {
   return (dispatch: Dispatch) => {
-    //TODO: set status undelivered
+    //TODO: set status delivered
     //TODO: send to api
-    setTimeout(() => {
+    mockedPostDelivery('/finishDelivery', delivery, 'undelivered').then(() => {
+      console.log('undelivered');
       dispatch({
         type: ActiveDeliveryActionTypes.ACTIVE_DELIVERY_FINISH,
       });
-    }, 1000);
-    AsyncStorage.removeItem(STORAGE_KEY);
+      AsyncStorage.removeItem(STORAGE_KEY);
+    });
   };
 };
