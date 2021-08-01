@@ -116,4 +116,7 @@ export const Styles = StyleSheet.create({
   activeDeliverButtonsContainer: {
     flexDirection: 'row',
   },
+  errorText: {
+    color: 'red',
+  },
 });

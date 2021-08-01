@@ -1,6 +1,5 @@
 import axios from 'axios';
 import {Delivery} from '../../redux/deliveries/entitites/DeliveryEntity';
-import {Driver} from '../../redux/driver/entities/DriverEntity';
 
 const BASE_API = 'https://60e84194673e350017c21844.xn--evg/api';
 
@@ -60,7 +59,6 @@ export const mockedPostDriver = async (
   id: string,
   password: string,
 ): Promise<void> => {
-  console.log('arriba la crida');
   if (apiMethod === '/driver' && id && password) {
     await timeoutSimulatingApiCall();
   } else {

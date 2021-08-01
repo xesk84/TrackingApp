@@ -23,8 +23,9 @@ type Props = {navigation: NavigationProp<{}>};
 export const MainScreen = ({navigation}: Props) => {
   const [driverId, setDriverId] = useState('');
   const [password, setPassword] = useState('');
+  const [loginError, setLoginError] = useState(false);
   const dispatch = useDispatch();
-  const {id, status, error} = useSelector((state: RootState) => state.driver);
+  const {id, status} = useSelector((state: RootState) => state.driver);
   const activeDelivery: Delivery = useSelector(
     (state: RootState) => state.activeDelivery,
   );
@@ -40,7 +41,12 @@ export const MainScreen = ({navigation}: Props) => {
   }, [dispatch, id]);
 
   const onLogin = () => {
-    dispatch(loginDriver(driverId, password));
+    setLoginError(false);
+    if (driverId && password) {
+      dispatch(loginDriver(driverId, password));
+    } else {
+      setLoginError(true);
+    }
   };
 
   const onChangeDriverId = useCallback((text: string) => {
@@ -77,6 +83,7 @@ export const MainScreen = ({navigation}: Props) => {
               <Login
                 onChangeDriverId={onChangeDriverId}
                 onChangePassword={onChangePassword}
+                loginError={loginError}
                 onLogin={onLogin}
               />
             ) : (

@@ -1,4 +1,5 @@
 import React from 'react';
+import {Text} from 'react-native';
 import {Section, Button, Input} from '..';
 import {Styles} from '../../styles/Styles';
 
@@ -6,9 +7,15 @@ type Props = {
   onChangeDriverId: (text: string) => void;
   onChangePassword: (text: string) => void;
   onLogin: () => void;
+  loginError: boolean;
 };
 
-export function Login({onChangeDriverId, onChangePassword, onLogin}: Props) {
+export function Login({
+  onChangeDriverId,
+  onChangePassword,
+  onLogin,
+  loginError,
+}: Props) {
   return (
     <>
       <Section sectionStyle={Styles.verticalSectionSeparator}>
@@ -28,6 +35,13 @@ export function Login({onChangeDriverId, onChangePassword, onLogin}: Props) {
           onChangeText={onChangePassword}
         />
       </Section>
+      {loginError ? (
+        <Section sectionStyle={Styles.verticalSectionSeparator}>
+          <Text style={Styles.errorText}>Wrong driver or password</Text>
+        </Section>
+      ) : (
+        <></>
+      )}
       <Section sectionStyle={Styles.verticalSectionSeparator}>
         <Button
           buttonText="Login"

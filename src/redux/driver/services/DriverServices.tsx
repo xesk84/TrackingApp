@@ -10,18 +10,13 @@ export const loginDriver = (id: string, password: string) => {
     dispatch({
       type: DriverActionTypes.DRIVER_ACTION_REQUEST,
     });
-    mockedPostDriver('/driver', id, password)
-      .then(() => {
-        console.log('tornem de la crida de driver');
-        dispatch({
-          type: DriverActionTypes.DRIVER_ACTION_FETCH,
-          payload: {id: id},
-        });
-        AsyncStorage.setItem(STORAGE_KEY, id);
-      })
-      .catch(e => {
-        console.log(e);
+    mockedPostDriver('/driver', id, password).then(() => {
+      dispatch({
+        type: DriverActionTypes.DRIVER_ACTION_FETCH,
+        payload: {id: id},
       });
+      AsyncStorage.setItem(STORAGE_KEY, id);
+    });
   };
 };
 
@@ -30,28 +25,22 @@ export const logoutDriver = () => {
     dispatch({
       type: DriverActionTypes.DRIVER_ACTION_LOGOUT,
     });
-    AsyncStorage.removeItem(STORAGE_KEY).catch(e => {
-      console.log(`Imposible to logout ${e}`);
-    });
+    AsyncStorage.removeItem(STORAGE_KEY);
   };
 };
 
 export const getPersistedDriver = () => {
   return (dispatch: Dispatch) => {
-    console.log('****arranquem');
     dispatch({
       type: DriverActionTypes.DRIVER_ACTION_REQUEST,
     });
     AsyncStorage.getItem(STORAGE_KEY).then(result => {
-      console.log('**** la persistencia', result);
       if (result) {
-        console.log('tinc driver persistit', result);
         dispatch({
           type: DriverActionTypes.DRIVER_ACTION_FETCH,
           payload: {id: result},
         });
       } else {
-        console.log('Sense driver persistit');
         dispatch({
           type: DriverActionTypes.DRIVER_ACTION_LOGOUT,
         });

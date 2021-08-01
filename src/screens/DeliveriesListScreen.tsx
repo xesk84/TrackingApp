@@ -1,8 +1,7 @@
 import {NavigationProp} from '@react-navigation/native';
 import React, {useEffect} from 'react';
 import {ActivityIndicator, ListRenderItemInfo} from 'react-native';
-import {FlatListProps} from 'react-native';
-import {View, Text, SafeAreaView, FlatList, ListRenderItem} from 'react-native';
+import {View, Text, SafeAreaView, FlatList} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {StatusEnum} from '../common/enums/StatusEnum';
 import {Button} from '../components';
@@ -25,16 +24,11 @@ export const DeliveriesListScreen = ({navigation}: Props) => {
     dispatch(getDeliveries());
   }, [dispatch]);
 
-  console.log('Deliveries', deliveries);
-  console.log('status', status);
-  console.log('error', error);
-
   const keyExtractor = (item: Delivery, index: number) => {
     return `${item.id}-${index}`;
   };
 
   const setActive = (delivery: Delivery) => {
-    console.log('farem actiu', delivery.id);
     dispatch(setActiveDelivery(delivery));
     navigation.goBack();
   };

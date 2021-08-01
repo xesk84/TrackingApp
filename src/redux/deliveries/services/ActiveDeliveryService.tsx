@@ -39,7 +39,6 @@ export const setActiveDeliveryDelivered = (delivery: Delivery) => {
     //TODO: send to api
     Geolocation.getCurrentPosition(
       position => {
-        console.log('position', position);
         mockedPostDelivery(
           '/finishDelivery',
           {
@@ -49,7 +48,6 @@ export const setActiveDeliveryDelivered = (delivery: Delivery) => {
           },
           'delivered',
         ).then(() => {
-          console.log('delivered');
           dispatch({
             type: ActiveDeliveryActionTypes.ACTIVE_DELIVERY_FINISH,
           });
@@ -68,7 +66,6 @@ export const setActiveDeliveryNotDelivered = (delivery: Delivery) => {
     //TODO: send to api
     Geolocation.getCurrentPosition(
       position => {
-        console.log('position undelivered', position);
         mockedPostDelivery(
           '/finishDelivery',
           {
@@ -78,7 +75,6 @@ export const setActiveDeliveryNotDelivered = (delivery: Delivery) => {
           },
           'undelivered',
         ).then(() => {
-          console.log('undelivered');
           dispatch({
             type: ActiveDeliveryActionTypes.ACTIVE_DELIVERY_FINISH,
           });
