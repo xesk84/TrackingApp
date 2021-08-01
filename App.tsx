@@ -7,12 +7,21 @@ import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import {rootReducer} from './src/redux/RootReducer';
 import {Provider} from 'react-redux';
+import Geolocation from 'react-native-geolocation-service';
+import {useEffect} from 'react';
+import {Platform} from 'react-native';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
 const Stack = createStackNavigator();
 
 const App = () => {
+  useEffect(() => {
+    if (Platform.OS === 'ios') {
+      Geolocation.requestAuthorization('whenInUse');
+    }
+  });
+
   return (
     <Provider store={store}>
       <NavigationContainer>

@@ -3,6 +3,8 @@ import {ActiveDeliveryActionTypes} from '../actions/ActiveDeliveryActions';
 import {Delivery} from '../entitites/DeliveryEntity';
 import AsyncStorage from '@react-native-community/async-storage';
 import {mockedPostDelivery} from '../../../common/services/ApiService';
+import Geolocation from 'react-native-geolocation-service';
+import {Alert} from 'react-native';
 
 const STORAGE_KEY = 'ACTIVE_DELIVERY_KEY';
 
@@ -35,13 +37,28 @@ export const setActiveDeliveryDelivered = (delivery: Delivery) => {
   return (dispatch: Dispatch) => {
     //TODO: set status delivered
     //TODO: send to api
-    mockedPostDelivery('/finishDelivery', delivery, 'delivered').then(() => {
-      console.log('delivered');
-      dispatch({
-        type: ActiveDeliveryActionTypes.ACTIVE_DELIVERY_FINISH,
-      });
-      AsyncStorage.removeItem(STORAGE_KEY);
-    });
+    Geolocation.getCurrentPosition(
+      position => {
+        console.log('position', position);
+        mockedPostDelivery(
+          '/finishDelivery',
+          {
+            ...delivery,
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          },
+          'delivered',
+        ).then(() => {
+          console.log('delivered');
+          dispatch({
+            type: ActiveDeliveryActionTypes.ACTIVE_DELIVERY_FINISH,
+          });
+          AsyncStorage.removeItem(STORAGE_KEY);
+        });
+      },
+      error => Alert.alert('Error', JSON.stringify(error)),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
+    );
   };
 };
 
@@ -49,12 +66,27 @@ export const setActiveDeliveryNotDelivered = (delivery: Delivery) => {
   return (dispatch: Dispatch) => {
     //TODO: set status delivered
     //TODO: send to api
-    mockedPostDelivery('/finishDelivery', delivery, 'undelivered').then(() => {
-      console.log('undelivered');
-      dispatch({
-        type: ActiveDeliveryActionTypes.ACTIVE_DELIVERY_FINISH,
-      });
-      AsyncStorage.removeItem(STORAGE_KEY);
-    });
+    Geolocation.getCurrentPosition(
+      position => {
+        console.log('position undelivered', position);
+        mockedPostDelivery(
+          '/finishDelivery',
+          {
+            ...delivery,
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          },
+          'undelivered',
+        ).then(() => {
+          console.log('undelivered');
+          dispatch({
+            type: ActiveDeliveryActionTypes.ACTIVE_DELIVERY_FINISH,
+          });
+          AsyncStorage.removeItem(STORAGE_KEY);
+        });
+      },
+      error => Alert.alert('Error', JSON.stringify(error)),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
+    );
   };
 };
