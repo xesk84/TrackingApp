@@ -62,19 +62,30 @@ export const DeliveriesListScreen = ({navigation}: Props) => {
     );
   };
 
+  const renderListByStatus = (): JSX.Element => {
+    if (status === StatusEnum.Error) {
+      return (
+        <Text
+          style={
+            Styles.errorText
+          }>{`Error getting Deliveries ${error}. Try again later.`}</Text>
+      );
+    } else if (status === StatusEnum.Loading) {
+      return <ActivityIndicator size={'large'} />;
+    } else {
+      return (
+        <FlatList
+          keyExtractor={keyExtractor}
+          data={deliveries}
+          renderItem={renderItem}
+        />
+      );
+    }
+  };
+
   return (
     <SafeAreaView style={Styles.mainContainer}>
-      <View style={Styles.centerContent}>
-        {status === StatusEnum.Loading ? (
-          <ActivityIndicator size={'large'} />
-        ) : (
-          <FlatList
-            keyExtractor={keyExtractor}
-            data={deliveries}
-            renderItem={renderItem}
-          />
-        )}
-      </View>
+      <View style={Styles.centerContent}>{renderListByStatus()}</View>
     </SafeAreaView>
   );
 };
