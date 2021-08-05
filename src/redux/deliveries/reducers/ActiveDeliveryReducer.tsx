@@ -1,10 +1,11 @@
+import {StatusEnum} from '../../../common/enums/StatusEnum';
 import {
   ActiveDeliveryActions,
   ActiveDeliveryActionTypes,
 } from '../actions/ActiveDeliveryActions';
-import {Delivery} from '../entitites/DeliveryEntity';
+import {ActiveDelivery} from '../entitites/DeliveryEntity';
 
-const initialState: Delivery = {
+const initialState: ActiveDelivery = {
   id: '',
   address: '',
   city: '',
@@ -12,10 +13,12 @@ const initialState: Delivery = {
   latitude: 0,
   longitude: 0,
   customer: '',
+  status: StatusEnum.NotInformed,
+  error: '',
 };
 
 export const activeDeliveryReducer = (
-  state: Delivery = initialState,
+  state: ActiveDelivery = initialState,
   action: ActiveDeliveryActions,
 ) => {
   switch (action.type) {
@@ -23,6 +26,13 @@ export const activeDeliveryReducer = (
       return {
         ...state,
         ...action.payload,
+        status: StatusEnum.Ready,
+        error: '',
+      };
+    case ActiveDeliveryActionTypes.ACTIVE_DELIVERY_FINISHING:
+      return {
+        ...state,
+        status: StatusEnum.Loading,
       };
     case ActiveDeliveryActionTypes.ACTIVE_DELIVERY_FINISH:
       return {

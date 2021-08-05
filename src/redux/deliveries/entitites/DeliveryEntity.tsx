@@ -10,6 +10,11 @@ export type Delivery = {
   customer: string;
 };
 
+export type ActiveDelivery = Delivery & {
+  status: StatusEnum;
+  error: string;
+};
+
 export type Deliveries = {
   deliveries: Array<Delivery>;
   status: StatusEnum;

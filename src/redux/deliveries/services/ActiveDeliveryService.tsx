@@ -1,6 +1,6 @@
 import {Dispatch} from 'redux';
 import {ActiveDeliveryActionTypes} from '../actions/ActiveDeliveryActions';
-import {Delivery} from '../entitites/DeliveryEntity';
+import {ActiveDelivery, Delivery} from '../entitites/DeliveryEntity';
 import AsyncStorage from '@react-native-community/async-storage';
 import {mockedPostDelivery} from '../../../common/services/ApiService';
 import Geolocation from 'react-native-geolocation-service';
@@ -33,10 +33,14 @@ export const loadPersistedActiveDelivery = () => {
   };
 };
 
-export const setActiveDeliveryDelivered = (delivery: Delivery) => {
+export const setActiveDeliveryFinished = (
+  delivery: ActiveDelivery,
+  deliveryStatus: 'delivered' | 'undelivered',
+) => {
   return (dispatch: Dispatch) => {
-    //TODO: set status delivered
-    //TODO: send to api
+    dispatch({
+      type: ActiveDeliveryActionTypes.ACTIVE_DELIVERY_FINISHING,
+    });
     Geolocation.getCurrentPosition(
       position => {
         mockedPostDelivery(
@@ -46,34 +50,7 @@ export const setActiveDeliveryDelivered = (delivery: Delivery) => {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
           },
-          'delivered',
-        ).then(() => {
-          dispatch({
-            type: ActiveDeliveryActionTypes.ACTIVE_DELIVERY_FINISH,
-          });
-          AsyncStorage.removeItem(STORAGE_KEY);
-        });
-      },
-      error => Alert.alert('Error', JSON.stringify(error)),
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
-    );
-  };
-};
-
-export const setActiveDeliveryNotDelivered = (delivery: Delivery) => {
-  return (dispatch: Dispatch) => {
-    //TODO: set status delivered
-    //TODO: send to api
-    Geolocation.getCurrentPosition(
-      position => {
-        mockedPostDelivery(
-          '/finishDelivery',
-          {
-            ...delivery,
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          },
-          'undelivered',
+          deliveryStatus,
         ).then(() => {
           dispatch({
             type: ActiveDeliveryActionTypes.ACTIVE_DELIVERY_FINISH,

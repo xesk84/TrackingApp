@@ -1,16 +1,17 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, ActivityIndicator} from 'react-native';
 import {Button, Section} from '..';
-import {Delivery} from '../../redux/deliveries/entitites/DeliveryEntity';
+import {StatusEnum} from '../../common/enums/StatusEnum';
+import {ActiveDelivery} from '../../redux/deliveries/entitites/DeliveryEntity';
 import {Styles} from '../../styles/Styles';
 
 type Props = {
-  activeDelivery: Delivery;
+  activeDelivery: ActiveDelivery;
   onDelivered: () => void;
   onUndelivered: () => void;
 };
 
-export const ActiveDelivery = ({
+export const CurrentActiveDelivery = ({
   activeDelivery,
   onDelivered,
   onUndelivered,
@@ -40,20 +41,24 @@ export const ActiveDelivery = ({
         </Text>
       </View>
       <Section sectionStyle={Styles.verticalSectionSeparator}>
-        <View style={Styles.activeDeliverButtonsContainer}>
-          <Button
-            buttonStyle={Styles.smallButton}
-            buttonText="Delivered"
-            onPress={onDelivered}
-            textStyle={Styles.buttonTextStyle}
-          />
-          <Button
-            buttonStyle={Styles.reverseSmallButton}
-            buttonText="Undelivered"
-            onPress={onUndelivered}
-            textStyle={Styles.reverseButtonTextStyle}
-          />
-        </View>
+        {activeDelivery.status === StatusEnum.Loading ? (
+          <ActivityIndicator size={'large'} color={'black'} />
+        ) : (
+          <View style={Styles.activeDeliverButtonsContainer}>
+            <Button
+              buttonStyle={Styles.smallButton}
+              buttonText="Delivered"
+              onPress={onDelivered}
+              textStyle={Styles.buttonTextStyle}
+            />
+            <Button
+              buttonStyle={Styles.reverseSmallButton}
+              buttonText="Undelivered"
+              onPress={onUndelivered}
+              textStyle={Styles.reverseButtonTextStyle}
+            />
+          </View>
+        )}
       </Section>
     </View>
   );
