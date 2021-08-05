@@ -55,7 +55,8 @@
       "node_modules/(?!(jest-)?@?react-native|@react-native-community|@react-navigation)"
     ],
     "setupFiles": [
-      "./node_modules/react-native-gesture-handler/jestSetup.js"
+      "./node_modules/react-native-gesture-handler/jestSetup.js",
+      "./jestSetupFile.js"
     ],
     "moduleFileExtensions": [
       "ts",
