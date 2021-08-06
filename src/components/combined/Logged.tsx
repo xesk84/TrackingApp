@@ -1,17 +1,17 @@
 import {NavigationProp} from '@react-navigation/native';
 import React from 'react';
 import {Text} from 'react-native';
-import {Delivery} from '../../redux/deliveries/entitites/DeliveryEntity';
+import {ActiveDelivery} from '../../redux/deliveries/entitites/DeliveryEntity';
 import {Styles} from '../../styles/Styles';
 import {Button} from '../basic/Button';
 import {Section} from '../basic/Section';
-import {ActiveDelivery} from './ActiveDelivery';
+import {CurrentActiveDelivery} from './CurrentActiveDelivery';
 
 type Props = {
   driverId: string;
   onLogout: () => void;
   navigation: NavigationProp<any>;
-  activeDelivery: Delivery;
+  activeDelivery: ActiveDelivery;
   onDelivered: () => void;
   onUndelivered: () => void;
 };
@@ -54,7 +54,7 @@ export const Logged = ({
         </>
       ) : (
         <Section sectionStyle={Styles.verticalSectionSeparator}>
-          <ActiveDelivery
+          <CurrentActiveDelivery
             activeDelivery={activeDelivery}
             onDelivered={onDelivered}
             onUndelivered={onUndelivered}

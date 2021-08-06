@@ -4,11 +4,10 @@ import {ActivityIndicator, SafeAreaView, Text, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {StatusEnum} from '../common/enums/StatusEnum';
 import {Logged, Login, Section} from '../components';
-import {Delivery} from '../redux/deliveries/entitites/DeliveryEntity';
+import {ActiveDelivery} from '../redux/deliveries/entitites/DeliveryEntity';
 import {
   loadPersistedActiveDelivery,
-  setActiveDeliveryDelivered,
-  setActiveDeliveryNotDelivered,
+  setActiveDeliveryFinished,
 } from '../redux/deliveries/services/ActiveDeliveryService';
 import {
   getPersistedDriver,
@@ -26,7 +25,7 @@ export const MainScreen = ({navigation}: Props) => {
   const [loginError, setLoginError] = useState(false);
   const dispatch = useDispatch();
   const {id, status} = useSelector((state: RootState) => state.driver);
-  const activeDelivery: Delivery = useSelector(
+  const activeDelivery: ActiveDelivery = useSelector(
     (state: RootState) => state.activeDelivery,
   );
 
@@ -62,11 +61,11 @@ export const MainScreen = ({navigation}: Props) => {
   };
 
   const onDelivered = () => {
-    dispatch(setActiveDeliveryDelivered(activeDelivery));
+    dispatch(setActiveDeliveryFinished(activeDelivery, 'delivered'));
   };
 
   const onUndelivered = () => {
-    dispatch(setActiveDeliveryNotDelivered(activeDelivery));
+    dispatch(setActiveDeliveryFinished(activeDelivery, 'undelivered'));
   };
 
   return (
