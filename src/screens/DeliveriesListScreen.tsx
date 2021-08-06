@@ -46,8 +46,20 @@ export const DeliveriesListScreen = ({navigation}: Props) => {
             <Text>{item.city}</Text>
           </View>
           <View style={Styles.itemDataRow}>
+            <Text style={Styles.itemDataTitle}>ZipCode:</Text>
+            <Text>{item.zipCode}</Text>
+          </View>
+          <View style={Styles.itemDataRow}>
             <Text style={Styles.itemDataTitle}>Address:</Text>
             <Text>{item.address}</Text>
+          </View>
+          <View style={Styles.itemDataRow}>
+            <Text style={Styles.itemDataTitle}>Latitude:</Text>
+            <Text>{item.latitude}</Text>
+          </View>
+          <View style={Styles.itemDataRow}>
+            <Text style={Styles.itemDataTitle}>Longitude:</Text>
+            <Text>{item.longitude}</Text>
           </View>
         </View>
         <View style={Styles.deliveryItemButtonContainer}>

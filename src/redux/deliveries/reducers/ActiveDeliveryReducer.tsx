@@ -38,6 +38,12 @@ export const activeDeliveryReducer = (
       return {
         ...initialState,
       };
+    case ActiveDeliveryActionTypes.ACTIVE_DELIVERY_ERROR:
+      return {
+        ...state,
+        error: action.error,
+        status: StatusEnum.Error,
+      };
     default:
       return {...initialState};
   }

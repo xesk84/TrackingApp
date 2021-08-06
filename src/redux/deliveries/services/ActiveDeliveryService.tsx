@@ -51,12 +51,19 @@ export const setActiveDeliveryFinished = (
             longitude: position.coords.longitude,
           },
           deliveryStatus,
-        ).then(() => {
-          dispatch({
-            type: ActiveDeliveryActionTypes.ACTIVE_DELIVERY_FINISH,
+        )
+          .then(() => {
+            dispatch({
+              type: ActiveDeliveryActionTypes.ACTIVE_DELIVERY_FINISH,
+            });
+            AsyncStorage.removeItem(STORAGE_KEY);
+          })
+          .catch(e => {
+            dispatch({
+              type: ActiveDeliveryActionTypes.ACTIVE_DELIVERY_ERROR,
+              error: e.message,
+            });
           });
-          AsyncStorage.removeItem(STORAGE_KEY);
-        });
       },
       error => Alert.alert('Error', JSON.stringify(error)),
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},

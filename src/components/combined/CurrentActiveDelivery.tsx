@@ -35,6 +35,12 @@ export const CurrentActiveDelivery = ({
         </Text>
       </View>
       <View style={Styles.activeDeliveryRow}>
+        <Text style={Styles.activeDeliveryDataTitle}>ZipCode: </Text>
+        <Text style={Styles.activeDeliveryDataValue}>
+          {activeDelivery.zipCode}
+        </Text>
+      </View>
+      <View style={Styles.activeDeliveryRow}>
         <Text style={Styles.activeDeliveryDataTitle}>Address: </Text>
         <Text style={Styles.activeDeliveryDataValue}>
           {activeDelivery.address}
@@ -60,6 +66,16 @@ export const CurrentActiveDelivery = ({
           </View>
         )}
       </Section>
+      {activeDelivery.status === StatusEnum.Error && (
+        <Section sectionStyle={Styles.verticalSectionSeparator}>
+          <>
+            <Text style={Styles.errorText}>
+              Something happens closing delivery:
+            </Text>
+            <Text style={Styles.errorText}>{activeDelivery.error}</Text>
+          </>
+        </Section>
+      )}
     </View>
   );
 };

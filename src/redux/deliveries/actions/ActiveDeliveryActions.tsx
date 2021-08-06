@@ -21,7 +21,13 @@ export type ActiveDeliveryFinishing = {
   type: ActiveDeliveryActionTypes.ACTIVE_DELIVERY_FINISHING;
 };
 
+export type ActiveDeliveryError = {
+  type: ActiveDeliveryActionTypes.ACTIVE_DELIVERY_ERROR;
+  error: string;
+};
+
 export type ActiveDeliveryActions =
   | ActiveDeliveryActive
   | ActiveDeliveryFinish
-  | ActiveDeliveryFinishing;
+  | ActiveDeliveryFinishing
+  | ActiveDeliveryError;

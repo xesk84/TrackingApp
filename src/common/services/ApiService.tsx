@@ -71,10 +71,14 @@ export const mockedPostDelivery = async (
   delivery: Delivery,
   status: 'delivered' | 'undelivered',
 ): Promise<void> => {
-  if (apiMethod === '/finishDelivery' && delivery && status) {
-    await timeoutSimulatingApiCall();
-  } else {
-    throw new Error('Invalid method');
+  try {
+    if (apiMethod === '/finishDelivery' && delivery && status) {
+      await timeoutSimulatingApiCall();
+    } else {
+      throw new Error('Invalid method');
+    }
+  } catch (e) {
+    throw new Error(`Error finishing delivery ${delivery.id}`);
   }
 };
 
