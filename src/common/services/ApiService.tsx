@@ -11,14 +11,6 @@ type GetActions = '/deliveries';
 
 type PostActions = '/driver' | '/finishDelivery';
 
-/*
-const type PostMethods = | '/deliveries';
-  '/driver' = 'Driver',
-  '/deliveries' = 'Deliveries',
-  '/finishDelivery' = 'FinishDelivery',
-}
-*/
-
 export const get = async <T,>(apiMethod: string): Promise<T> => {
   const result = await axios.get<T>(BASE_API + apiMethod);
 
@@ -71,14 +63,14 @@ export const mockedPostDelivery = async (
   delivery: Delivery,
   status: 'delivered' | 'undelivered',
 ): Promise<void> => {
-  try {
-    if (apiMethod === '/finishDelivery' && delivery && status) {
+  if (apiMethod === '/finishDelivery' && delivery && status) {
+    try {
       await timeoutSimulatingApiCall();
-    } else {
-      throw new Error('Invalid method');
+    } catch (e) {
+      throw new Error(`Error finishing delivery ${delivery.id}`);
     }
-  } catch (e) {
-    throw new Error(`Error finishing delivery ${delivery.id}`);
+  } else {
+    throw new Error('Invalid method');
   }
 };
 

@@ -7,11 +7,18 @@ export const getDeliveries = () => {
     dispatch({
       type: DeliveriesActionTypes.DELIVERIES_ACTION_REQUEST,
     });
-    mockedGetDeliveries('/deliveries').then(result => {
-      dispatch({
-        type: DeliveriesActionTypes.DELIVERIES_ACTION_FETCH,
-        payload: result,
+    mockedGetDeliveries('/deliveries')
+      .then(result => {
+        dispatch({
+          type: DeliveriesActionTypes.DELIVERIES_ACTION_FETCH,
+          payload: result,
+        });
+      })
+      .catch(e => {
+        dispatch({
+          type: DeliveriesActionTypes.DELIVERIES_ACTION_ERROR,
+          error: e.message,
+        });
       });
-    });
   };
 };
