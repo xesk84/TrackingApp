@@ -1,6 +1,5 @@
-import {NavigationProp} from '@react-navigation/native';
 import React from 'react';
-import {Text} from 'react-native';
+import {Text, View} from 'react-native';
 import {ActiveDelivery} from '../../redux/deliveries/entitites/DeliveryEntity';
 import {Styles} from '../../styles/Styles';
 import {Button} from '../basic/Button';
@@ -10,36 +9,44 @@ import {CurrentActiveDelivery} from './CurrentActiveDelivery';
 type Props = {
   driverId: string;
   onLogout: () => void;
-  navigation: NavigationProp<any>;
   activeDelivery: ActiveDelivery;
   onDelivered: () => void;
   onUndelivered: () => void;
+  onGoToDeliveriesList: () => void;
+  componentTestId?: string;
+  deliverButtonTestId?: string;
+  undeliverButtonTestId?: string;
+  logoutButtonTestId?: string;
+  deliveriesListButtonTestId?: string;
 };
 
 export const Logged = ({
   driverId,
   onLogout,
-  navigation,
   activeDelivery,
   onDelivered,
   onUndelivered,
+  onGoToDeliveriesList,
+  componentTestId,
+  deliverButtonTestId,
+  undeliverButtonTestId,
+  logoutButtonTestId,
+  deliveriesListButtonTestId,
 }: Props) => {
-  const goToDeliveriesList = () => {
-    navigation.navigate('DeliveriesList');
-  };
   return (
-    <>
+    <View testID={componentTestId}>
       <Section sectionStyle={Styles.verticalSectionSeparator}>
         <Text style={Styles.subtitle}>{`Hi driver ${driverId}`}</Text>
       </Section>
       {!activeDelivery.id ? (
-        <>
+        <View>
           <Section sectionStyle={Styles.verticalSectionSeparator}>
             <Button
               buttonStyle={Styles.smallButton}
               buttonText="Deliveries"
-              onPress={goToDeliveriesList}
+              onPress={onGoToDeliveriesList}
               textStyle={Styles.buttonTextStyle}
+              testID={deliveriesListButtonTestId}
             />
           </Section>
 
@@ -49,18 +56,21 @@ export const Logged = ({
               buttonText="Logout"
               onPress={onLogout}
               textStyle={Styles.reverseButtonTextStyle}
+              testID={logoutButtonTestId}
             />
           </Section>
-        </>
+        </View>
       ) : (
         <Section sectionStyle={Styles.verticalSectionSeparator}>
           <CurrentActiveDelivery
             activeDelivery={activeDelivery}
             onDelivered={onDelivered}
             onUndelivered={onUndelivered}
+            deliverTestId={deliverButtonTestId}
+            undeliverTestId={undeliverButtonTestId}
           />
         </Section>
       )}
-    </>
+    </View>
   );
 };

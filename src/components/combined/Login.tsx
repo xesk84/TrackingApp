@@ -8,6 +8,10 @@ type Props = {
   onChangePassword: (text: string) => void;
   onLogin: () => void;
   loginError: boolean;
+  inputDriverIdTestId?: string;
+  inputPasswordTestId?: string;
+  sectionTextErrorTestId?: string;
+  buttonLoginTestId?: string;
 };
 
 export function Login({
@@ -15,6 +19,10 @@ export function Login({
   onChangePassword,
   onLogin,
   loginError,
+  inputDriverIdTestId,
+  inputPasswordTestId,
+  sectionTextErrorTestId,
+  buttonLoginTestId,
 }: Props) {
   return (
     <>
@@ -24,6 +32,7 @@ export function Login({
           textStyle={Styles.inputTextStyle}
           placeholder="Driver Id"
           onChangeText={onChangeDriverId}
+          testID={inputDriverIdTestId}
         />
       </Section>
       <Section sectionStyle={Styles.verticalSectionSeparator}>
@@ -33,14 +42,15 @@ export function Login({
           textStyle={Styles.inputTextStyle}
           isPassword={true}
           onChangeText={onChangePassword}
+          testID={inputPasswordTestId}
         />
       </Section>
-      {loginError ? (
-        <Section sectionStyle={Styles.verticalSectionSeparator}>
+      {loginError && (
+        <Section
+          testID={sectionTextErrorTestId}
+          sectionStyle={Styles.verticalSectionSeparator}>
           <Text style={Styles.errorText}>Wrong driver or password</Text>
         </Section>
-      ) : (
-        <></>
       )}
       <Section sectionStyle={Styles.verticalSectionSeparator}>
         <Button
@@ -48,6 +58,7 @@ export function Login({
           onPress={onLogin}
           buttonStyle={Styles.smallButton}
           textStyle={Styles.buttonTextStyle}
+          testID={buttonLoginTestId}
         />
       </Section>
     </>

@@ -9,6 +9,7 @@ type Props = {
   isPassword?: boolean;
   onChangeText: (text: string) => void;
   maxLength?: number;
+  testID?: string;
 };
 
 export const Input = ({
@@ -18,6 +19,7 @@ export const Input = ({
   isPassword,
   onChangeText,
   maxLength,
+  testID,
 }: Props) => {
   return (
     <View style={inputContainerStyle}>
@@ -27,6 +29,7 @@ export const Input = ({
         placeholder={placeholder}
         onChangeText={onChangeText}
         maxLength={maxLength || 15}
+        testID={testID}
       />
     </View>
   );

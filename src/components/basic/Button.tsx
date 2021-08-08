@@ -6,6 +6,7 @@ type Props = {
   buttonText: string;
   buttonStyle: ViewStyle;
   textStyle: TextStyle;
+  testID?: string;
 };
 
 export const Button = ({
@@ -13,9 +14,10 @@ export const Button = ({
   buttonText,
   buttonStyle,
   textStyle,
+  testID,
 }: Props) => {
   return (
-    <Pressable onPress={onPress} style={buttonStyle}>
+    <Pressable onPress={onPress} style={buttonStyle} testID={testID}>
       <Text style={textStyle}>{buttonText}</Text>
     </Pressable>
   );

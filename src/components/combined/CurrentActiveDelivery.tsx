@@ -9,15 +9,21 @@ type Props = {
   activeDelivery: ActiveDelivery;
   onDelivered: () => void;
   onUndelivered: () => void;
+  testID?: string;
+  deliverTestId?: string;
+  undeliverTestId?: string;
 };
 
 export const CurrentActiveDelivery = ({
   activeDelivery,
   onDelivered,
   onUndelivered,
+  testID,
+  deliverTestId,
+  undeliverTestId,
 }: Props) => {
   return (
-    <View>
+    <View testID={testID}>
       <View style={Styles.activeDeliveryRow}>
         <Text style={Styles.activeDeliveryDataTitle}>Deliver Id: </Text>
         <Text style={Styles.activeDeliveryDataValue}>{activeDelivery.id}</Text>
@@ -56,12 +62,14 @@ export const CurrentActiveDelivery = ({
               buttonText="Delivered"
               onPress={onDelivered}
               textStyle={Styles.buttonTextStyle}
+              testID={deliverTestId}
             />
             <Button
               buttonStyle={Styles.reverseSmallButton}
               buttonText="Undelivered"
               onPress={onUndelivered}
               textStyle={Styles.reverseButtonTextStyle}
+              testID={undeliverTestId}
             />
           </View>
         )}

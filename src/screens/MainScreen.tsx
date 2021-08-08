@@ -17,7 +17,7 @@ import {
 import {RootState} from '../redux/RootReducer';
 import {Styles} from '../styles/Styles';
 
-type Props = {navigation: NavigationProp<{}>};
+type Props = {navigation: NavigationProp<any>};
 
 export const MainScreen = ({navigation}: Props) => {
   const [driverId, setDriverId] = useState('');
@@ -68,6 +68,10 @@ export const MainScreen = ({navigation}: Props) => {
     dispatch(setActiveDeliveryFinished(activeDelivery, 'undelivered'));
   };
 
+  const goToDeliveriesList = () => {
+    navigation.navigate('DeliveriesList');
+  };
+
   return (
     <SafeAreaView style={Styles.mainContainer}>
       <View style={Styles.centerContent}>
@@ -87,12 +91,12 @@ export const MainScreen = ({navigation}: Props) => {
               />
             ) : (
               <Logged
-                navigation={navigation}
                 driverId={id}
                 onLogout={onLogout}
                 activeDelivery={activeDelivery}
                 onUndelivered={onUndelivered}
                 onDelivered={onDelivered}
+                onGoToDeliveriesList={goToDeliveriesList}
               />
             )}
           </>
