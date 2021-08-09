@@ -10,10 +10,6 @@ import {act} from '@testing-library/react-native';
 // Note: test renderer must be required after react-native.
 import renderer from 'react-test-renderer';
 
-jest.useFakeTimers();
-
-act(() => jest.advanceTimersByTime(1500));
-
 jest.mock('react-native-geolocation-service', () => {
   return {
     getCurrentPosition: jest.fn(),
@@ -21,12 +17,11 @@ jest.mock('react-native-geolocation-service', () => {
   };
 });
 
-// jest.mock('react-redux', () => {
-//   return {
-//     useDispatch: jest.fn(),
-//   };
-// });
-
 it('renders correctly', () => {
+  jest.useFakeTimers();
+  act(() => {
+    jest.advanceTimersByTime(2000);
+  });
+
   renderer.create(<App />);
 });
