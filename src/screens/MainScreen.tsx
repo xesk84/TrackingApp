@@ -79,7 +79,7 @@ export const MainScreen = ({navigation}: Props) => {
           <Text style={Styles.title}>Welcome to tracking app!</Text>
         </Section>
         {status === StatusEnum.Loading ? (
-          <ActivityIndicator size={'large'} />
+          <ActivityIndicator size={'large'} color={'black'} />
         ) : (
           <>
             {!id ? (

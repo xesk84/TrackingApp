@@ -83,7 +83,7 @@ export const DeliveriesListScreen = ({navigation}: Props) => {
           }>{`Error getting Deliveries ${error}. Try again later.`}</Text>
       );
     } else if (status === StatusEnum.Loading) {
-      return <ActivityIndicator size={'large'} />;
+      return <ActivityIndicator size={'large'} color={'black'} />;
     } else {
       return (
         <FlatList

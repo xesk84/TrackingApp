@@ -68,7 +68,7 @@ export const Styles = StyleSheet.create({
   bottomAbsoluteSection: {
     justifyContent: 'flex-end',
     position: 'absolute',
-    bottom: 0,
+    bottom: 5,
     flex: 1,
   },
   deliveryListItem: {
