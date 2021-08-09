@@ -34,12 +34,12 @@ export const Logged = ({
   deliveriesListButtonTestId,
 }: Props) => {
   return (
-    <View testID={componentTestId}>
+    <View style={Styles.mainContainer} testID={componentTestId}>
       <Section sectionStyle={Styles.verticalSectionSeparator}>
         <Text style={Styles.subtitle}>{`Hi driver ${driverId}`}</Text>
       </Section>
       {!activeDelivery.id ? (
-        <View>
+        <>
           <Section sectionStyle={Styles.verticalSectionSeparator}>
             <Button
               buttonStyle={Styles.smallButton}
@@ -59,7 +59,7 @@ export const Logged = ({
               testID={logoutButtonTestId}
             />
           </Section>
-        </View>
+        </>
       ) : (
         <Section sectionStyle={Styles.verticalSectionSeparator}>
           <CurrentActiveDelivery

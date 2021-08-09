@@ -69,6 +69,7 @@ export const Styles = StyleSheet.create({
     justifyContent: 'flex-end',
     position: 'absolute',
     bottom: 0,
+    flex: 1,
   },
   deliveryListItem: {
     borderBottomWidth: 0.5,
